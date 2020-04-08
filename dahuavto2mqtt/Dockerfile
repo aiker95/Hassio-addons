@@ -1,4 +1,4 @@
-ARG BUILD_FROM=hassioaddons/base:7.0.3
+ARG BUILD_FROM
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -15,7 +15,7 @@ apk del .build-dependencies
 
 WORKDIR /app
 
-COPY run.sh /app/run.sh
+COPY ./run.sh /app/run.sh
 RUN chmod +x /app/run.sh
 
 CMD /app/run.sh
