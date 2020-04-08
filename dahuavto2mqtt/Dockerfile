@@ -6,18 +6,16 @@ ENV LANG C.UTF-8
 
 ARG DAHUA_BRANCH="master"
 
+WORKDIR /app
+COPY . /app
+
 RUN apk add --no-cache --update argon2-libs php php-json && \
 apk add --no-cache --virtual .build-dependencies git && \
-git clone https://github.com/elad-bar/DahuaVTO2MQTT.git --branch ${DAHUA_BRANCH} --depth 1 /app && \
-mv /app/DahuaEventHandler.php /app/DahuaVTO.php && \
+git clone https://github.com/elad-bar/DahuaVTO2MQTT.git --branch ${DAHUA_BRANCH} --depth 1 /app_docker && \
+mv /app_docker/DahuaEventHandler.php /app_docker/DahuaVTO.php && \
+mv /app_docker/* /app/ && \
 chmod +x /app/DahuaVTO.php && \
 apk del .build-dependencies 
-
-WORKDIR /app
-
-RUN ls
-
-COPY . /app
 
 RUN ls /app
 
